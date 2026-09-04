@@ -12,9 +12,10 @@ type EnergyEntry = {
 type OdysseyPath = {
   label: string;
   prompt: string;
+  description: string;
   title: string;
   detail: string;
-  color: "blue" | "red" | "yellow";
+  color: "blue" | "yellow" | "green";
 };
 
 type DashboardKey = "health" | "work" | "play" | "love";
@@ -94,25 +95,28 @@ const questions = [
 
 const starterPaths: OdysseyPath[] = [
   {
-    label: "Path one",
-    prompt: "The path you are already on",
+    label: "Life 1",
+    prompt: "Life 1 — Your current direction",
+    description: "Carry the life you’re living—or the idea already taking shape—five years forward.",
     title: "Keep growing this life",
     detail: "What becomes possible when the current direction goes well?",
     color: "blue",
   },
   {
-    label: "Path two",
-    prompt: "The path if plan one vanished",
+    label: "Life 2",
+    prompt: "Life 2 — If Life 1 were no longer possible",
+    description: "Set your first plan aside. What different direction would you pursue?",
     title: "Follow a different thread",
     detail: "Remove the obvious answer. What else deserves a real look?",
-    color: "red",
+    color: "yellow",
   },
   {
-    label: "Path three",
-    prompt: "The path without status or constraint",
+    label: "Life 3",
+    prompt: "Life 3 — Without money or image constraints",
+    description: "Imagine your basic needs are covered. What would you pursue without concerns about status or other people’s expectations?",
     title: "Choose the wild card",
     detail: "What would you try if nobody needed an explanation?",
-    color: "yellow",
+    color: "green",
   },
 ];
 
@@ -545,7 +549,15 @@ function OdysseyStudio() {
   useEffect(() => {
     const saved = readStoredValue<OdysseyPath[]>(storageKeys.odyssey);
     if (!saved) return;
-    const timer = window.setTimeout(() => setPaths(saved), 0);
+    const timer = window.setTimeout(() => {
+      setPaths(saved.map((path, index) => ({
+        ...path,
+        prompt: starterPaths[index]?.prompt ?? path.prompt,
+        label: starterPaths[index]?.label ?? path.label,
+        description: starterPaths[index]?.description ?? path.description,
+        color: starterPaths[index]?.color ?? path.color,
+      })));
+    }, 0);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -595,7 +607,6 @@ function OdysseyStudio() {
               }
             }}
           >
-            <span>0{index + 1}</span>
             {path.label}
           </button>
         ))}
@@ -609,14 +620,14 @@ function OdysseyStudio() {
       >
         <div className="path-canvas__prompt">
           <span>{paths[activePath].prompt}</span>
-          <p>Imagine five years—not a prediction, just a coherent possibility worth noticing.</p>
+          <p>{paths[activePath].description}</p>
         </div>
         <div className="path-line" aria-hidden="true">
           <i /><i /><i /><i /><i />
         </div>
         <div className="path-fields">
           <div className="field-group">
-            <label htmlFor="path-title">Give this life a six-word headline</label>
+            <label htmlFor="path-title">Six-word title</label>
             <input
               id="path-title"
               value={paths[activePath].title}
@@ -624,10 +635,9 @@ function OdysseyStudio() {
             />
           </div>
           <div className="field-group">
-            <label htmlFor="path-detail">What makes it interesting?</label>
-            <textarea
+            <label htmlFor="path-detail">What questions does this life raise?</label>
+            <input
               id="path-detail"
-              rows={3}
               value={paths[activePath].detail}
               onChange={(event) => updatePath("detail", event.target.value)}
             />
@@ -977,10 +987,10 @@ export default function Home() {
         <div className="section-intro section-intro--split">
           <div>
             <p className="eyebrow">The Odyssey Plan</p>
-            <h2>Sketch three lives.<br />Release the pressure.</h2>
+            <h2>Imagine three different futures.</h2>
           </div>
           <p>
-            Create three genuinely different five-year stories. You are not choosing yet. You are making the invisible visible enough to learn from it.
+            Give each life a six-word title and note what you would want to learn about it. You are generating options, not choosing one.
           </p>
         </div>
         <OdysseyStudio />
