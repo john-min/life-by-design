@@ -380,7 +380,7 @@ function Viewfinder() {
         <article>
           <span className="view-number">01</span>
           <p className="eyebrow">Lifeview</p>
-          <h3>What makes a life meaningful?</h3>
+          <h3>What gives life meaning?</h3>
           <p className="view-prompt">Consider purpose, joy, connection, the world, and what you believe makes a life worth living.</p>
           <label htmlFor="lifeview">In a few sentences, what do you believe?</label>
           <textarea
@@ -394,7 +394,7 @@ function Viewfinder() {
         <article>
           <span className="view-number">02</span>
           <p className="eyebrow">Workview</p>
-          <h3>What is work for?</h3>
+          <h3>What is the purpose behind work?</h3>
           <p className="view-prompt">Consider contribution, growth, money, service, craft, and the role work should play in a full life.</p>
           <label htmlFor="workview">In a few sentences, what do you believe?</label>
           <textarea
@@ -407,18 +407,20 @@ function Viewfinder() {
         </article>
       </div>
       <div className="coherence-field">
-        <span className="view-number">03</span>
-        <div>
+        <div className="coherence-field__copy">
+          <span className="view-number">03</span>
           <p className="eyebrow">Coherence</p>
           <label htmlFor="coherence">Where do your Lifeview and Workview reinforce each other—and where are they in tension?</label>
         </div>
-        <textarea
-          id="coherence"
-          rows={4}
-          value={views.coherence}
-          onChange={(event) => updateView("coherence", event.target.value)}
-          placeholder="I notice that…"
-        />
+        <div className="coherence-field__input">
+          <textarea
+            id="coherence"
+            rows={6}
+            value={views.coherence}
+            onChange={(event) => updateView("coherence", event.target.value)}
+            placeholder="I notice that…"
+          />
+        </div>
       </div>
       <p className="views-local-note">These views are drafts. Let them change as your life gives you new evidence.</p>
     </div>

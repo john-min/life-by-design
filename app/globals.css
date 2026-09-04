@@ -330,13 +330,14 @@
   .viewfinder__views { display: grid; border-top: 1px solid oklch(62% 0.055 164); }
   .viewfinder__views article { display: grid; align-content: start; gap: 1rem; padding: 2rem 0; border-bottom: 1px solid oklch(62% 0.055 164); }
   .view-number { color: var(--sun); font-size: var(--text-xs); font-weight: 700; }
-  .viewfinder h3 { max-width: 15ch; font-size: clamp(2.25rem, 5vw, 4.5rem); }
-  .view-prompt { max-width: 38rem; color: oklch(87% 0.035 164); }
+  .viewfinder h3 { max-width: 18ch; min-height: 3.24em; font-size: clamp(2.25rem, 5vw, 4.5rem); }
+  .view-prompt { max-width: none; min-height: 4.8em; color: oklch(87% 0.035 164); }
   .viewfinder label { margin-top: 1rem; font-size: var(--text-sm); font-weight: 700; }
   .viewfinder textarea { border-color: oklch(68% 0.055 164); color: var(--paper); font-size: var(--text-lead); }
   .viewfinder textarea::placeholder { color: oklch(76% 0.04 164); }
-  .coherence-field { display: grid; gap: 1rem; padding: 2rem 0; border-bottom: 1px solid oklch(62% 0.055 164); }
-  .coherence-field label { display: block; max-width: 26ch; margin-top: 0.75rem; font-family: var(--font-display); font-size: clamp(1.65rem, 3.5vw, 3rem); font-weight: 400; line-height: 1.08; letter-spacing: -0.025em; }
+  .coherence-field { display: grid; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid oklch(62% 0.055 164); }
+  .coherence-field__copy { display: grid; align-content: start; gap: 1rem; }
+  .coherence-field label { display: block; max-width: 18ch; margin-top: 0; font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 4.5rem); font-weight: 400; line-height: 1.08; letter-spacing: -0.025em; }
   .views-local-note { margin-top: 1rem; color: oklch(87% 0.035 164); font-size: var(--text-xs); }
 
   .energy-workbench { display: grid; gap: 3rem; margin-top: var(--space-3xl); }
@@ -513,10 +514,25 @@
     .dashboard-area:last-child { padding-right: 0; border-right: 0; }
     .dashboard-question { min-height: 6em; }
     .dashboard-levels { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-    .viewfinder__views { grid-template-columns: 1fr 1fr; }
-    .viewfinder__views article { padding: 3rem clamp(2rem, 5vw, 5rem) 3rem 0; }
-    .viewfinder__views article + article { padding-left: clamp(2rem, 5vw, 5rem); padding-right: 0; border-left: 1px solid oklch(62% 0.055 164); }
-    .coherence-field { grid-template-columns: 4rem minmax(0, 0.8fr) minmax(0, 1fr); align-items: start; padding: 3rem 0; }
+    .viewfinder__views {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto auto auto 1fr;
+    }
+    .viewfinder__views article {
+      grid-template-rows: subgrid;
+      grid-row: 1 / span 6;
+      padding: 3rem clamp(2rem, 5vw, 5rem);
+    }
+    .viewfinder__views article:first-child { padding-left: 0; }
+    .viewfinder__views article + article { padding-right: 0; border-left: 1px solid oklch(62% 0.055 164); }
+    .coherence-field {
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: start;
+      padding: 3rem 0;
+    }
+    .coherence-field__copy { padding-right: clamp(2rem, 5vw, 5rem); }
+    .coherence-field__input { align-self: center; padding-left: clamp(2rem, 5vw, 5rem); }
     .path-canvas { padding: clamp(2rem, 5vw, 5rem); }
     .path-fields { grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
     .local-data-controls { grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
